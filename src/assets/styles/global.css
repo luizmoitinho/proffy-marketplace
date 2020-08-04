@@ -46,7 +46,7 @@ body,
 input,
 button,
 textarea{
-    font: 500 1.6em Poppins;
+    font: 500 1.6rem Poppins;
   
 }
 
@@ -59,7 +59,6 @@ textarea{
 
 @media (min-width: 700px){
   :root{
-    font-size: 92.5%;
+    font-size: 62.5%;
   }
 }
-
