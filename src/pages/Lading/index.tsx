@@ -1,21 +1,21 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
+import './style.css';
 
 //================== IMAGENS ==================
 import logoImg  from '../../assets/images/logo.svg';
 import landingImg  from '../../assets/images/landing.svg';
 //================== ICONES ==================
 import studyIcon from '../../assets/images/icons/study.svg';
-import giveClassesIcon from '../../assets/images/icons/study.svg';
+import giveClassesIcon from '../../assets/images/icons/give-classes.svg';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
-
-import './style.css';
-
 function Landing(){
 
     return (
         <div id="page-landing">
             <div className="container" id="page-landing-content">
+
                 <div className="logo-container">
                     <img src={logoImg} alt="Proffy" />
                     <h2>Seu pré-vestibular gratuito</h2>
@@ -28,14 +28,14 @@ function Landing(){
                 />
               
                 <div className="buttons-container">
-                    <a href="http://" className="study">
+                    <Link to="/study" className="study">
                         <img src={studyIcon} alt="Estudar" />
                         Estudar
-                    </a>
-                    <a href="http://" className="give-classes">
+                    </Link>
+                    <Link to="/give-classes" className="give-classes">
                         <img src={giveClassesIcon} alt="Dar aula" />
                         Dar aula
-                    </a>
+                    </Link>
                 </div>
 
                 <span className="total-connections">
