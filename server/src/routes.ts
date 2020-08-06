@@ -40,36 +40,48 @@ routes.post('/users', async (request, response) => {
         endereco
     } = request.body;
 
-    const userId = (await db('tb_usuario').insert({
-        nm_usuario,
-        img_usuario,
-        cpf_usuario,
-        email_usuario,
-        tel_usuario,
-        bio_usuario,
-        login_usuario,
-        senha_usuario:  bcrypt.hashSync(senha_usuario, salt),
-        fk_id_nv_acesso,
-    }))[0];
+    const transaction = await db.transaction();
 
-    if (fk_id_nv_acesso == 3) {
-        //Aguarda a operacao finalizar
-        const enderecoFormated =  endereco.map((endItem: AddressItem) => {
-            return {
-                UF: endItem.UF,
-                cidade: endItem.cidade,
-                bairro:endItem.bairro,
-                rua:endItem.rua,
-                numero:endItem.numero,
-                fk_id_usuario: userId
-            }
+    try{
+        const userId = (await transaction('tb_usuario').insert({
+            nm_usuario,
+            img_usuario,
+            cpf_usuario,
+            email_usuario,
+            tel_usuario,
+            bio_usuario,
+            login_usuario,
+            senha_usuario:  bcrypt.hashSync(senha_usuario, salt),
+            fk_id_nv_acesso,
+        }))[0];
+    
+        if (fk_id_nv_acesso == 3) {
+            //Aguarda a operacao finalizar
+            const enderecoFormated =  endereco.map((endItem: AddressItem) => {
+                return {
+                    UF: endItem.UF,
+                    cidade: endItem.cidade,
+                    bairro:endItem.bairro,
+                    rua:endItem.rua,
+                    numero:endItem.numero,
+                    fk_id_usuario: userId
+                }
+            });
+            
+            await transaction('tb_endereco').insert(enderecoFormated);
+        }
+    
+        await transaction.commit();
+        return response.status(201).json({
+            message:"Usuário criado com sucesso."
         });
-        
-        await db('tb_endereco').insert(enderecoFormated);
+
+    }catch(err){
+        await transaction.rollback();
+        return response.status(400).json({
+            message:'Não foi possivel realizar o cadastro.'
+        })
     }
-
-    return response.send();
-
 });
 
 
