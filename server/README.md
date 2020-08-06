@@ -1,4 +1,4 @@
-## Funcionalidades
+# Funcionalidades
 ---
 ## Observações
 1. Para ver os serviços não há a necessidade de estar autenticado.
