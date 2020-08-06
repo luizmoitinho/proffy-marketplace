@@ -29,13 +29,18 @@ routes.post('/users', async(request, response) =>{
      login_usuario,
      senha_usuario,
      fk_id_nv_acesso,
-     fk_id_endereco
+     
+     UF,
+     cidade,
+     rua,
+     bairro,
+     numero
    } = request.body; 
    
 //    console.log(request.body);
 
    //Aguarda a operacao finalizar
-   await db('tb_usuario').insert({
+   const userId = (await db('tb_usuario').insert({
         nm_usuario,
         img_usuario,
         cpf_usuario,
@@ -44,12 +49,24 @@ routes.post('/users', async(request, response) =>{
         bio_usuario,
         login_usuario,
         senha_usuario,
-        fk_id_nv_acesso
-   })
+        fk_id_nv_acesso,
+       
+   }))[0];
+
+   await db('tb_endereco').insert({
+        UF,
+        cidade,
+        rua,
+        bairro,
+        numero,
+        fk_id_usuario:userId
+   });
 
    return response.send();
 
 });
+
+
 
 export default routes;
 

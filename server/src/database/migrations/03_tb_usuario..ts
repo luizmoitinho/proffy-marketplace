@@ -14,14 +14,10 @@ export async function up(knex: Knex){
         table.string('senha_usuario',255);
 
         table.integer('fk_id_nv_acesso').notNullable();
-        table.integer('fk_id_endereco').nullable();
 
         table.foreign('fk_id_nv_acesso').references('tb_nv_acesso.id_acesso');
-        table.foreign('fk_id_endereco').references('tb_endereco.id_endereco');
         
     });
-
-    
 
 }
 
