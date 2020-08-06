@@ -1,5 +1,5 @@
-### Funcionalidades
---
+# Funcionalidades
+---
 ## Observações
 1. Para ver os serviços não há a necessidade de estar autenticado.
 2. Para cadastrar um serviço e torná-lo disponível, e preciso ser cadastrado.
