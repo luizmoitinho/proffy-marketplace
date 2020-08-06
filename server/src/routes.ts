@@ -6,7 +6,15 @@ const routes = express.Router();
 const bcrypt = require('bcrypt');
 const salt = bcrypt.genSaltSync(10);
 
-routes.post('/access', async(request, response) =>{
+interface AddressItem{
+    UF      :String;
+    cidade  :String;
+    bairro  :String;
+    rua     :String;
+    numero  :Number
+}
+
+routes.post('/access', async (request, response) => {
     const {
         nm_nv_acesso
     } = request.body;
@@ -18,29 +26,8 @@ routes.post('/access', async(request, response) =>{
 });
 
 
-routes.post('/users', async(request, response) =>{
-   const {
-     nm_usuario,
-     img_usuario,
-     cpf_usuario,
-     email_usuario,
-     tel_usuario,
-     bio_usuario,
-     login_usuario,
-     senha_usuario,
-     fk_id_nv_acesso,
-     
-     UF,
-     cidade,
-     rua,
-     bairro,
-     numero
-   } = request.body; 
-   
-//    console.log(request.body);
-
-   //Aguarda a operacao finalizar
-   const userId = (await db('tb_usuario').insert({
+routes.post('/users', async (request, response) => {
+    const {
         nm_usuario,
         img_usuario,
         cpf_usuario,
@@ -50,19 +37,38 @@ routes.post('/users', async(request, response) =>{
         login_usuario,
         senha_usuario,
         fk_id_nv_acesso,
-       
-   }))[0];
+        endereco
+    } = request.body;
 
-   await db('tb_endereco').insert({
-        UF,
-        cidade,
-        rua,
-        bairro,
-        numero,
-        fk_id_usuario:userId
-   });
+    const userId = (await db('tb_usuario').insert({
+        nm_usuario,
+        img_usuario,
+        cpf_usuario,
+        email_usuario,
+        tel_usuario,
+        bio_usuario,
+        login_usuario,
+        senha_usuario:  bcrypt.hashSync(senha_usuario, salt),
+        fk_id_nv_acesso,
+    }))[0];
 
-   return response.send();
+    if (fk_id_nv_acesso == 3) {
+        //Aguarda a operacao finalizar
+        const enderecoFormated =  endereco.map((endItem: AddressItem) => {
+            return {
+                UF: endItem.UF,
+                cidade: endItem.cidade,
+                bairro:endItem.bairro,
+                rua:endItem.rua,
+                numero:endItem.numero,
+                fk_id_usuario: userId
+            }
+        });
+        
+        await db('tb_endereco').insert(enderecoFormated);
+    }
+
+    return response.send();
 
 });
 
