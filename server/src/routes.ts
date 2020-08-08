@@ -1,18 +1,11 @@
 import express, { request } from "express";
+import UserController from './controllers/UserController';
+import ConnectionsController from './controllers/ConnectionsController';
 import db from "./database/connection";
 
 const routes = express.Router();
-
-const bcrypt = require('bcrypt');
-const salt = bcrypt.genSaltSync(10);
-
-interface AddressItem{
-    UF      :String;
-    cidade  :String;
-    bairro  :String;
-    rua     :String;
-    numero  :Number
-}
+const userController = new UserController();
+const connectionController = new ConnectionsController();
 
 routes.post('/access', async (request, response) => {
     const {
@@ -25,66 +18,27 @@ routes.post('/access', async (request, response) => {
     return response.send();
 });
 
-
-routes.post('/users', async (request, response) => {
+routes.post('/areas', async (request, response) => {
     const {
-        nm_usuario,
-        img_usuario,
-        cpf_usuario,
-        email_usuario,
-        tel_usuario,
-        bio_usuario,
-        login_usuario,
-        senha_usuario,
-        fk_id_nv_acesso,
-        endereco
+        nm_area,
     } = request.body;
 
-    const transaction = await db.transaction();
-
-    try{
-        const userId = (await transaction('tb_usuario').insert({
-            nm_usuario,
-            img_usuario,
-            cpf_usuario,
-            email_usuario,
-            tel_usuario,
-            bio_usuario,
-            login_usuario,
-            senha_usuario:  bcrypt.hashSync(senha_usuario, salt),
-            fk_id_nv_acesso,
-        }))[0];
-    
-        if (fk_id_nv_acesso == 3) {
-            //Aguarda a operacao finalizar
-            const enderecoFormated =  endereco.map((endItem: AddressItem) => {
-                return {
-                    UF: endItem.UF,
-                    cidade: endItem.cidade,
-                    bairro:endItem.bairro,
-                    rua:endItem.rua,
-                    numero:endItem.numero,
-                    fk_id_usuario: userId
-                }
-            });
-            
-            await transaction('tb_endereco').insert(enderecoFormated);
-        }
-    
-        await transaction.commit();
-        return response.status(201).json({
-            message:"Usuário criado com sucesso."
-        });
-
-    }catch(err){
-        await transaction.rollback();
-        return response.status(400).json({
-            message:'Não foi possivel realizar o cadastro.'
-        })
-    }
+    await db('tb_area').insert({
+        nm_area
+    })
+    return response.send();
 });
 
 
+
+//Users
+routes.post('/users', userController.create);
+routes.get('/users', userController.index);
+
+
+//Conxao
+routes.post('/connections', connectionController.create )
+routes.get('/connections', connectionController.index )
 
 export default routes;
 

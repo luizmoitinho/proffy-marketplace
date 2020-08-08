@@ -4,7 +4,7 @@ export async function up(knex: Knex){
 
     return knex.schema.createTable('tb_servico', table => {
         table.increments('id_servico').primary();
-        table.string('img_servico',255).notNullable();
+        table.text('img_servico').nullable();
         table.string('nm_servico',155).notNullable();
         table.text('desc_servico').notNullable();
         table.decimal('valor_servico').notNullable();

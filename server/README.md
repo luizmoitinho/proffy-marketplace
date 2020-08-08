@@ -9,8 +9,10 @@
 
 ## Rotas
 1. CRUD Usuário
+ > - Criar usuario
+ > - Criar 
 2. CRUD Serviço
-> - Filtrar por: Nome profissional, Área e preço
+> - Filtrar por: Nome profissional, Área e 
 
 ## Casos de uso
 1. Autenticar

@@ -3,7 +3,7 @@ import React from 'react';
 import whatsAppIcon from '../../assets/images/icons/whatsapp.svg';
 import './style.css';
 
-const TeacherItem = () => {
+const ProffyItem = () => {
     return (
         <article className="teacher-item">
             <header>
@@ -33,4 +33,4 @@ const TeacherItem = () => {
     );
 }
 
-export default TeacherItem;
+export default ProffyItem;

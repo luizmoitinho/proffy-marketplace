@@ -7,7 +7,7 @@ export async function up(knex: Knex){
 
         table.integer('fk_id_profissional').notNullable();
         table.integer('fk_id_usuario').notNullable();
-        table.timestamp('dt_conexao').defaultTo('now()')
+        table.timestamp('dt_conexao').defaultTo('CURRENT_TIMESTAMP')
                                      .notNullable();
 
         table.foreign('fk_id_profissional').references('tb_usuario.id_usuario')
