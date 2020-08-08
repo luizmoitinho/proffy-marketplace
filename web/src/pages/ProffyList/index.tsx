@@ -24,6 +24,7 @@ function ProffyList() {
                         <label htmlFor="time">Estrelas</label>
                         <select>
                             <option >Selecione o número de estrelas</option>
+                            <option>0</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>

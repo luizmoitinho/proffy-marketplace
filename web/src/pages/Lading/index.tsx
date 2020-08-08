@@ -31,11 +31,9 @@ function Landing(){
               
                 <div className="buttons-container">
                     <Link to="/study" className="study">
-                        <img src={studyIcon} alt="Estudar" />
                         Contratar
                     </Link>
                     <Link to="/give-classes" className="give-classes">
-                        <img src={giveClassesIcon} alt="Dar aula" />
                         Criar serviço
                     </Link>
                 </div>

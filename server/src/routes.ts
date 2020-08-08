@@ -1,11 +1,11 @@
 import express, { request } from "express";
-import UserController from './controllers/UserController';
-import ConnectionsController from './controllers/ConnectionsController';
+import UsuarioController from './controllers/UsuarioController';
+import ConexaoController from './controllers/ConexaoController';
 import db from "./database/connection";
 
 const routes = express.Router();
-const userController = new UserController();
-const connectionController = new ConnectionsController();
+const usarioController = new UsuarioController();
+const conexaoController = new ConexaoController();
 
 routes.post('/access', async (request, response) => {
     const {
@@ -17,7 +17,6 @@ routes.post('/access', async (request, response) => {
     })
     return response.send();
 });
-
 routes.post('/areas', async (request, response) => {
     const {
         nm_area,
@@ -30,15 +29,14 @@ routes.post('/areas', async (request, response) => {
 });
 
 
-
 //Users
-routes.post('/users', userController.create);
-routes.get('/users', userController.index);
+routes.post('/users', usarioController.create);
+routes.get('/profissionais', usarioController.index);
 
 
 //Conxao
-routes.post('/connections', connectionController.create )
-routes.get('/connections', connectionController.index )
+routes.post('/connections', conexaoController.create )
+routes.get('/connections', conexaoController.index )
 
 export default routes;
 
