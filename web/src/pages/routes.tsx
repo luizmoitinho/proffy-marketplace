@@ -10,8 +10,8 @@ function Routes(){
     return(
         <BrowserRouter>
             <Route path="/" exact component={Landing} />
-            <Route path="/study" component={ProffyList} />
-            <Route path="/give-classes" component={ProffyForm} />
+            <Route path="/services" component={ProffyList} />
+            <Route path="/create" component={ProffyForm} />
         </BrowserRouter>
     );
 }

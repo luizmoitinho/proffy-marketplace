@@ -6,6 +6,7 @@ import PageHeader from '../../components/PageHeader';
 import './style.css';
 import ProffyItem from '../../components/ProffyItem';
 import Input from '../../components/Formulario/Input';
+import Select from '../../components/Formulario/Select';
 
 
 function ProffyList() {
@@ -18,11 +19,21 @@ function ProffyList() {
                         label="Profissional"
                         placeholder="ex: Luiz Moitinho "
                     />
-                    <Input
-                      name="servico" 
-                      label="Tipo de serviço<"
-                      placeholder="Ex: eletricista"                  
-                    />
+
+                <Select
+                        name="fk_id_area"
+                        label="Tipo"
+                        options={[
+                            {value:'1',label:'Alimentação'},
+                            {value:'2',label:'Fitness'    },
+                            {value:'3',label:'Móveis'     },
+                            {value:'4',label:'Aluguéis'   },
+                            {value:'5',label:'Eletricista'},
+                            {value:'6',label:'Mecânico'   },
+                            {value:'7',label:'Programador'},
+                        ]}
+                />
+
                    
                     <div className="input-block">
                         <label htmlFor="time">Estrelas</label>

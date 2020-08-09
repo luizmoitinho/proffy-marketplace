@@ -48,6 +48,8 @@ function ProffyForm() {
                         label="Foto de capa"
                         placeholder="https://url"
                     />
+
+                    
                     <Input
                         name="Nome"
                         label="Nome"
@@ -56,7 +58,17 @@ function ProffyForm() {
                     <Select
                         name="fk_id_area"
                         label="Tipo"
+                        options={[
+                            {value:'1',label:'Alimentação'},
+                            {value:'2',label:'Fitness'    },
+                            {value:'3',label:'Móveis'     },
+                            {value:'4',label:'Aluguéis'   },
+                            {value:'5',label:'Eletricista'},
+                            {value:'6',label:'Mecânico'   },
+                            {value:'7',label:'Programador'},
+                        ]}
                     />
+
                     <TextArea
                         name="desc_servico"
                         label="Descrição"

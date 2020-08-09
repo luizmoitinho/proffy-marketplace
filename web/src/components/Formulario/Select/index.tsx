@@ -1,25 +1,27 @@
-import React from 'react';
+import React, {SelectHTMLAttributes} from 'react';
 import '../style.css'
 
 
-interface SelectProps{
+interface SelectProps extends  SelectHTMLAttributes<HTMLSelectElement>{
     name:string;
     label:string;
+    options?:Array<{
+        value:string,
+        label:string
+    }>
 }
 
-const Select: React.FC<SelectProps> = ({name,label}) =>{
+const Select: React.FC<SelectProps> = ({name,label,options,...rest}) =>{
     return(
         <div className="input-block">
             <label htmlFor="time">{label}</label>
-            <select name={name}>
-                <option value="1">Beleza</option>
-                <option value="2">Alimentação</option>
-                <option value="3">Fitness</option>
-                <option value="4">Móveis</option>
-                <option value="5">Aluguéis</option>
-                <option value="6">Eletricista</option>
-                <option value="7">Mecânico </option>
-                <option value="8">Programador</option>
+            <select name={name} {...rest}>
+                <option value="" disabled selected hidden>Selecione um tipo de serviço</option>
+                {
+                    options?.map(option => {
+                    return <option key={option.value} value={option.value}>{option.label}</option>
+                    })
+                }
             </select>
         </div>
     );
