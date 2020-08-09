@@ -4,8 +4,9 @@ import cors from 'cors';
 
 const app = express();
 
-
-app.use(express.json()); //O express nao entende o json
+//O express nao entende o json
+app.use(express.json()); 
+app.use(cors)
 app.use(routes);
 
 app.listen(3333);

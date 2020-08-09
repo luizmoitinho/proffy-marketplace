@@ -12,8 +12,7 @@ export async function up(knex: Knex){
             {nm_area:'Fitness'},
             {nm_area:'Móveis'},
             {nm_area:'Alguéis'},
-            {nm_area:'Eletrcista'},
-            {nm_area:'Encanador'},
+            {nm_area:'Eletricista'},
             {nm_area:'Mecânico'},
             {nm_area:'Programador'},
         ])

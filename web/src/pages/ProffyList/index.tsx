@@ -5,6 +5,7 @@ import PageHeader from '../../components/PageHeader';
 
 import './style.css';
 import ProffyItem from '../../components/ProffyItem';
+import Input from '../../components/Formulario/Input';
 
 
 function ProffyList() {
@@ -12,14 +13,17 @@ function ProffyList() {
         <div id="page-teacher-list" className="container">
             <PageHeader title="Estes são os proffys disponíveis.">
                 <form id="search-teachers">
-                    <div className="input-block">
-                        <label htmlFor="subject">Profissional</label>
-                        <input type="text" id="subject" placeholder="Nome do profissional" />
-                    </div>
-                    <div className="input-block">
-                        <label htmlFor="week-day">Tipo de serviço</label>
-                        <input type="text" id="week-day" placeholder="Ex: eletricista, garçom, encanador" />
-                    </div>
+                    <Input 
+                        name="subject" 
+                        label="Profissional"
+                        placeholder="ex: Luiz Moitinho "
+                    />
+                    <Input
+                      name="servico" 
+                      label="Tipo de serviço<"
+                      placeholder="Ex: eletricista"                  
+                    />
+                   
                     <div className="input-block">
                         <label htmlFor="time">Estrelas</label>
                         <select>
