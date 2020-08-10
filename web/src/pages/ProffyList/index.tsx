@@ -23,6 +23,7 @@ function ProffyList() {
                 <Select
                         name="fk_id_area"
                         label="Tipo"
+                        optionDefault="Selecione um tipo de serviço"
                         options={[
                             {value:'1',label:'Alimentação'},
                             {value:'2',label:'Fitness'    },
@@ -34,18 +35,20 @@ function ProffyList() {
                         ]}
                 />
 
-                   
-                    <div className="input-block">
-                        <label htmlFor="time">Estrelas</label>
-                        <select>
-                            <option >Selecione o número de estrelas</option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>5</option>
-                        </select>
-                    </div>
+                <Select
+                        name="estrelas"
+                        label="Estrelas"
+                        optionDefault="Selecione o número de estrelas"
+                        options={[
+                            {value:'0',label:'0'},
+                            {value:'1',label:'1'},
+                            {value:'2',label:'2'},
+                            {value:'3',label:'3'},
+                            {value:'4',label:'4'},
+                            {value:'5',label:'5'},
+                        ]}
+                />
+
                 </form>
             </PageHeader>
             <main>

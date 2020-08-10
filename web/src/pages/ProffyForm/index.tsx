@@ -49,41 +49,85 @@ function ProffyForm() {
                         placeholder="https://url"
                     />
 
-                    
+
                     <Input
                         name="Nome"
                         label="Nome"
-                        
+
                     />
                     <Select
                         name="fk_id_area"
                         label="Tipo"
                         options={[
-                            {value:'1',label:'Alimentação'},
-                            {value:'2',label:'Fitness'    },
-                            {value:'3',label:'Móveis'     },
-                            {value:'4',label:'Aluguéis'   },
-                            {value:'5',label:'Eletricista'},
-                            {value:'6',label:'Mecânico'   },
-                            {value:'7',label:'Programador'},
+                            { value: '1', label: 'Alimentação' },
+                            { value: '2', label: 'Fitness' },
+                            { value: '3', label: 'Móveis' },
+                            { value: '4', label: 'Aluguéis' },
+                            { value: '5', label: 'Eletricista' },
+                            { value: '6', label: 'Mecânico' },
+                            { value: '7', label: 'Programador' },
                         ]}
                     />
 
                     <TextArea
                         name="desc_servico"
                         label="Descrição"
-                        
+
                     />
                     <Input
                         name="valor_servico"
                         label="Preço: R$"
                     />
                 </fieldset>
+                <fieldset>
+                    <legend>Endereço</legend>
+
+                    <Select
+                        name="UF"
+                        label="UF"
+                        options={[
+                            { value: '1', label: 'AL' },
+                            { value: '2', label: 'BA' },
+                            { value: '3', label: 'SE' },
+                            { value: '4', label: 'PB' },
+                            { value: '5', label: 'CE' },
+                        ]}
+                    />
+                    <Input
+                        name="cidade"
+                        label="Cidade"
+                        type="address"
+                    />
+                    <Input
+                        name="bairro"
+                        label="Bairro"
+                    />
+                    <Input
+                        name="rua"
+                        label="Rua/Avenida"
+                    />
+                    <Input
+                        name="numero"
+                        label="Número"
+                        type="number"
+                    />
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        Serviços adicionados
+                            <button >
+                            + Adicionar serviço
+                    </button>
+                    </legend>
+                    <div className="servico-item">
+
+                    </div>
+                </fieldset>
                 <footer>
                     <p>
-                        <img src={warningIco} alt="aviso importante"/>
-                       <span>
-                           Importante!<br/>
+                        <img src={warningIco} alt="aviso importante" />
+                        <span>
+                            Importante!<br />
                            Preencha todos os dados.
                        </span>
                     </p>
