@@ -18,7 +18,7 @@ function ProffyForm() {
             />
             <main>
                 <fieldset>
-                    <legend>Seus dados</legend>
+                    <legend>Dados pessoais</legend>
                     <Input
                         name="img_usuario"
                         label="Foto de perfil"
@@ -39,6 +39,40 @@ function ProffyForm() {
                     <Input
                         name="tel_usuario"
                         label="WhatsApp"
+                    />
+                </fieldset>
+                <fieldset>
+                    <legend>Endereço</legend>
+
+                    <Select
+                        name="UF"
+                        label="UF"
+                        optionDefault="Selecione um UF"
+                        options={[
+                            { value: '1', label: 'AL' },
+                            { value: '2', label: 'BA' },
+                            { value: '3', label: 'SE' },
+                            { value: '4', label: 'PB' },
+                            { value: '5', label: 'CE' },
+                        ]}
+                    />
+                    <Input
+                        name="cidade"
+                        label="Cidade"
+                        type="address"
+                    />
+                    <Input
+                        name="bairro"
+                        label="Bairro"
+                    />
+                    <Input
+                        name="rua"
+                        label="Rua/Avenida"
+                    />
+                    <Input
+                        name="numero"
+                        label="Número"
+                        type="number"
                     />
                 </fieldset>
                 <fieldset>
@@ -79,48 +113,31 @@ function ProffyForm() {
                         label="Preço: R$"
                     />
                 </fieldset>
-                <fieldset>
-                    <legend>Endereço</legend>
-
-                    <Select
-                        name="UF"
-                        label="UF"
-                        options={[
-                            { value: '1', label: 'AL' },
-                            { value: '2', label: 'BA' },
-                            { value: '3', label: 'SE' },
-                            { value: '4', label: 'PB' },
-                            { value: '5', label: 'CE' },
-                        ]}
-                    />
-                    <Input
-                        name="cidade"
-                        label="Cidade"
-                        type="address"
-                    />
-                    <Input
-                        name="bairro"
-                        label="Bairro"
-                    />
-                    <Input
-                        name="rua"
-                        label="Rua/Avenida"
-                    />
-                    <Input
-                        name="numero"
-                        label="Número"
-                        type="number"
-                    />
-                </fieldset>
+               
                 <fieldset>
                     <legend>
-                        Serviços adicionados
-                            <button >
-                            + Adicionar serviço
-                    </button>
+                        Horários disponíveis
+                        <button >
+                            + Novo horário
+                        </button>
                     </legend>
                     <div className="servico-item">
-
+                        <Select
+                            name="dia_semana"
+                            label="Dia da semanna"
+                            optionDefault="Seleciona um dia"
+                            options={[
+                                { value: '0', label: 'Domingo' },
+                                { value: '1', label: 'Segunda-feira' },
+                                { value: '2', label: 'Terça-feira' },
+                                { value: '3', label: 'Quarta-feira' },
+                                { value: '4', label: 'Quinta-feira' },
+                                { value: '5', label: 'Sexta-feira' },
+                                { value: '6', label: 'Sábado' },
+                            ]}
+                        />
+                        <Input type="time" name="horario_inicio" label="Das"/>  
+                        <Input type="time" name="horario_fim" label="Até"/>                  
                     </div>
                 </fieldset>
                 <footer>
