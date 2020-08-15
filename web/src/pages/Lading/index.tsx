@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
-
 import './style.css';
 
 //================== IMAGENS ==================
 import logoImg  from '../../assets/images/logo.svg';
 import landingImg  from '../../assets/images/landing.svg';
 //================== ICONES ==================
-import studyIcon from '../../assets/images/icons/study.svg';
-import giveClassesIcon from '../../assets/images/icons/give-classes.svg';
+// import studyIcon from '../../assets/images/icons/study.svg';
+// import giveClassesIcon from '../../assets/images/icons/give-classes.svg';
+
+import api from '../../services/api';
+
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 function Landing(){
 
+    const [totalConexoes, setTotalConexoes] = useState(0);
+
+    useEffect( () => {
+        api.get('connections').then( (response) => {
+            console.log(response)
+        })
+    }, []);
+
+    
     return (
         <div id="page-landing">
             <div className="container" id="page-landing-content">

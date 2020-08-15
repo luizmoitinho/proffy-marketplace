@@ -17,6 +17,7 @@ routes.post('/access', async (request, response) => {
     })
     return response.send();
 });
+
 routes.post('/areas', async (request, response) => {
     const {
         nm_area,
@@ -31,7 +32,7 @@ routes.post('/areas', async (request, response) => {
 
 //Users
 routes.post('/users', usarioController.create);
-routes.get('/profissionais', usarioController.index);
+routes.get('/users', usarioController.index);
 
 
 //Conxao

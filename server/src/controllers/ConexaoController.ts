@@ -19,10 +19,9 @@ export default class ConexaoController{
 
         await db('tb_conexao').insert({
             fk_id_profissional : id_profissional,
-            fk_id_usuario      : id_usuario
         })
 
-        return response.status(201).send()
+        return response.status(201).json({'message':'Uma nova conexão foi realizada'})
     }
 
 

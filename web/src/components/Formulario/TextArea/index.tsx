@@ -1,6 +1,5 @@
 import React, {TextareaHTMLAttributes} from 'react';
 import '../style.css'
-import { platform } from 'os';
 
 
 interface TextAreaProps  extends TextareaHTMLAttributes<HTMLTextAreaElement>{

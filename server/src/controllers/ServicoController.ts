@@ -42,7 +42,7 @@ export default class ServicoController{
 
             await transaction.commit();
             return response.status(201).json({
-                message:"Servico criado com sucesso."
+                message:"Serviço criado com sucesso."
             });
     
         }catch(err){

@@ -111,7 +111,32 @@
     color: var(--color-primary-dark);
 }
 
+
+.column-grid{
+    display: grid;
+    column-gap: 1.6rem;
+}
+
 @media (min-width:700px){
+
+
+    .column-grid-2-1-1{ 
+        grid-template-columns: 2fr  1fr 1fr;
+    }
+
+    .column-grid-1-3{
+        grid-template-columns: 1fr  3fr !important;
+    }
+    .column-grid-2-3{
+        grid-template-columns: 2fr  3fr !important;
+    }
+    .column-grid-1-3 .input-block + .input-block,
+    .column-grid-2-1-1 .input-block + .input-block{
+        margin-top: 0;
+        margin-bottom: 1.6rem;
+    } 
+
+
     #page-proffy-form{
         max-width: 100vw;
     }
@@ -121,16 +146,8 @@
     #page-proffy-form main fieldset{
         padding: 0 6.4rem;
     }
-
-    #page-proffy-form main fieldset .servico-item{
-        display: grid;
-        grid-template-columns: 2fr  1fr 1fr;
-        column-gap: 1.6rem;
-    }
     
-    #page-proffy-form main fieldset .servico-item .input-block{
-        margin-top: 0 !important;
-    } 
+
 
     #page-proffy-form main footer{
         padding:4.0rem 6.4rem;
