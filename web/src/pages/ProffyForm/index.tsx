@@ -1,4 +1,5 @@
 import React, {useState, FormEvent} from 'react';
+import {useHistory} from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
 
 import Input from '../../components/Formulario/Input/';
@@ -8,12 +9,13 @@ import TextArea from '../../components/Formulario/TextArea/';
 import warningIco from '../../assets/images/icons/warning.svg';
 
 import './style.css';
-import { appendFile } from 'fs';
 import api from '../../services/api';
 
 
 
 function ProffyForm() {
+
+    const history = useHistory();
 
     const[img_usuario,setImgUsuario]= useState('');
     const[nm_usuario,setNomeUsuario]= useState('');
@@ -76,43 +78,20 @@ function ProffyForm() {
                 rua,
                 numero,
             },
-            servico:{
+            servico:[{
                 nm_servico,
                 fk_id_area,
                 desc_servico,
                 valor_servico,
-            },
+            }],
             horarios_servico:horariosServicos
             
         }).then(()=>{
             alert('cadastro realizado com sucesso.');
+            history.push('/')
         }).catch(()=>{
             alert('Erro no cadastro!')
         });
-
-        // console.table({
-        //     img_usuario,
-        //     nm_usuario,
-        //     email_usuario,
-        //     cpf_usuario,
-        //     tel_usuario,
-        // })
-        // console.table({
-        //     UF,
-        //     cidade,
-        //     bairro,
-        //     rua,
-        //     numero,
-        // })
-        // console.table({
-        //     img_servico,
-        //     nm_servico,
-        //     fk_id_area,
-        //     desc_servico,
-        //     valor_servico:,
-        // })
-        // console.table(horariosServicos)
-
     }
 
     return (
@@ -175,11 +154,11 @@ function ProffyForm() {
                                 label="UF"
                                 optionDefault="UF"
                                 options={[
-                                    { value: '1', label: 'AL' },
-                                    { value: '2', label: 'BA' },
-                                    { value: '3', label: 'SE' },
-                                    { value: '4', label: 'PB' },
-                                    { value: '5', label: 'CE' },
+                                    { value: 'AL', label: 'AL' },
+                                    { value: 'BA', label: 'BA' },
+                                    { value: 'SE', label: 'SE' },
+                                    { value: 'PB', label: 'PB' },
+                                    { value: 'CE', label: 'CE' },
                                 ]}
                                 value={UF}
                                 onChange={ (e)=> {setUF(e.target.value) }}

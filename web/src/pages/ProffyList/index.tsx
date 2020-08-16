@@ -15,40 +15,41 @@ function ProffyList() {
             <PageHeader title="Estes são os proffys disponíveis.">
                 <form id="search-teachers">
                     <Input 
-                        name="subject" 
+                        name="profissional" 
                         label="Profissional"
                         placeholder="ex: Luiz Moitinho "
                     />
 
                 <Select
-                        name="fk_id_area"
+                        name="dia_semana"
                         label="Tipo"
-                        optionDefault="Selecione um tipo de serviço"
+                        optionDefault="Dia da semana"
                         options={[
-                            {value:'1',label:'Alimentação'},
-                            {value:'2',label:'Fitness'    },
-                            {value:'3',label:'Móveis'     },
-                            {value:'4',label:'Aluguéis'   },
-                            {value:'5',label:'Eletricista'},
-                            {value:'6',label:'Mecânico'   },
-                            {value:'7',label:'Programador'},
+                            { value: '0', label: 'Domingo' },
+                            { value: '1', label: 'Segunda-feira' },
+                            { value: '2', label: 'Terça-feira' },
+                            { value: '3', label: 'Quarta-feira' },
+                            { value: '4', label: 'Quinta-feira' },
+                            { value: '5', label: 'Sexta-feira' },
+                            { value: '6', label: 'Sábado' },
                         ]}
                 />
 
                 <Select
-                        name="estrelas"
-                        label="Estrelas"
-                        optionDefault="Selecione o número de estrelas"
+                        name="servico"
+                        label="Serviço"
+                        optionDefault="Tipos de serviços"
                         options={[
-                            {value:'0',label:'0'},
-                            {value:'1',label:'1'},
-                            {value:'2',label:'2'},
-                            {value:'3',label:'3'},
-                            {value:'4',label:'4'},
-                            {value:'5',label:'5'},
+                            { value: '1', label: 'Beleza' },
+                            { value: '2', label: 'Alimentação' },
+                            { value: '3', label: 'Fitness' },
+                            { value: '4', label: 'Móveis' },
+                            { value: '5', label: 'Aluguéis' },
+                            { value: '6', label: 'Eletricista' },
+                            { value: '7', label: 'Mecânico' },
+                            { value: '8', label: 'Programador' },
                         ]}
                 />
-
                 </form>
             </PageHeader>
             <main>
