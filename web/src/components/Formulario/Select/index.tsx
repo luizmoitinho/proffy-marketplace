@@ -14,9 +14,9 @@ interface SelectProps extends  SelectHTMLAttributes<HTMLSelectElement>{
 
 const Select: React.FC<SelectProps> = ({name, label, options, optionDefault, ...rest}) =>{
     return(
-        <div className="input-block">
+        <div className="input-block select">
             <label htmlFor={name}>{label}</label>
-            <select defaultValue="" id={name} {...rest}>
+            <select value="" id={name} {...rest}>
                 <option  value="" disabled hidden>{optionDefault}</option>
                 {
                     options?.map(option => {

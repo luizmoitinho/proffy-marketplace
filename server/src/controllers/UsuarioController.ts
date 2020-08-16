@@ -19,7 +19,7 @@ export default class UsuarioController{
         const nome = filters.nome as string;
         const area = filters.area as string;
         const dia_semana = filters.dia_semana as string;
-
+    
         if(!area || !dia_semana)
             return response.status(400).json({
                 error:'Campos não foram informados'
@@ -43,10 +43,8 @@ export default class UsuarioController{
         const {
             nm_usuario,
             img_usuario,
-            cpf_usuario,
             email_usuario,
             tel_usuario,
-            bio_usuario,
             login_usuario,
             senha_usuario,
             fk_id_nv_acesso,
@@ -55,16 +53,17 @@ export default class UsuarioController{
             horarios_servico
         } = request.body;
 
+        console.log(request.body)
+
         const transaction = await db.transaction();
 
         try{
             const userId = (await transaction('tb_usuario').insert({
                 nm_usuario,
                 img_usuario,
-                cpf_usuario,
                 email_usuario,
                 tel_usuario,
-                bio_usuario,
+                bio_usuario:"",
                 login_usuario,
                 senha_usuario:  bcrypt.hashSync(senha_usuario, salt),
                 fk_id_nv_acesso,
@@ -87,7 +86,6 @@ export default class UsuarioController{
 
                 const serviceFormated = servico.map( (serviceItem: ServicoInterface) => {
                     return {
-                        img_servico         : serviceItem.img_servico,
                         nm_servico          : serviceItem.nm_servico,
                         desc_servico        : serviceItem.desc_servico,
                         valor_servico       : serviceItem.valor_servico,

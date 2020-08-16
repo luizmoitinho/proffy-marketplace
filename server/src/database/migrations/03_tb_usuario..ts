@@ -6,7 +6,6 @@ export async function up(knex: Knex){
         table.increments('id_usuario').primary();
         table.string('nm_usuario',255).notNullable();
         table.string('img_usuario',255).notNullable();
-        table.string('cpf_usuario',14).unique().notNullable();
         table.string('email_usuario',45).unique().notNullable();
         table.string('tel_usuario',14).unique().notNullable();
         table.text('bio_usuario');

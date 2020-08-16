@@ -8,6 +8,8 @@ import TextArea from '../../components/Formulario/TextArea/';
 import warningIco from '../../assets/images/icons/warning.svg';
 
 import './style.css';
+import { appendFile } from 'fs';
+import api from '../../services/api';
 
 
 
@@ -16,8 +18,11 @@ function ProffyForm() {
     const[img_usuario,setImgUsuario]= useState('');
     const[nm_usuario,setNomeUsuario]= useState('');
     const[email_usuario,setEmailUsuario]= useState('');
-    const[cpf_usuario,setCPFUsuario]= useState('');
     const[tel_usuario,setTelUsuario]= useState('');
+    
+    const[login_usuario,setLoginUsuario]= useState('');
+    const[senha_usuario,setSenhaUsuario]= useState('');
+
 
     const[UF,setUF]= useState('');
     const[cidade,setCidade]= useState('');
@@ -25,7 +30,6 @@ function ProffyForm() {
     const[rua,setRua]= useState('');
     const[numero,setNumero]= useState('');
 
-    const[img_servico,setImgServico]= useState('');
     const[nm_servico,setNmServico]= useState('');
     const[fk_id_area,setFkIdarea]= useState('');
     const[desc_servico,setDescServico]= useState('');
@@ -47,31 +51,67 @@ function ProffyForm() {
     function setValorItem(indice: number, campo:string, valor:string){
         const horariosServicosAtualizado =  horariosServicos.map( (horario, posicao)=>{
             if(posicao === indice)
-                return {...horariosServicos, [campo]:valor}
+                return {...horario, [campo]:valor}
            
-            return horariosServicos;
+            return horario;
         })
-        console.log(horariosServicosAtualizado)
-
+        setHorarioServico(horariosServicosAtualizado)
     }
 
-    function handleCreateClass(e: FormEvent){
+    function handleCreateProffy(e: FormEvent){
         e.preventDefault();
 
-        console.table({
+        api.post('users',{
             img_usuario,
             nm_usuario,
             email_usuario,
-            cpf_usuario,
+            login_usuario,
+            senha_usuario,
             tel_usuario,
-        })
-        console.table({
-            UF,
-            cidade,
-            bairro,
-            rua,
-            numero,
-        })
+            fk_id_nv_acesso:"2",
+            endereco:{
+                UF,
+                cidade,
+                bairro,
+                rua,
+                numero,
+            },
+            servico:{
+                nm_servico,
+                fk_id_area,
+                desc_servico,
+                valor_servico,
+            },
+            horarios_servico:horariosServicos
+            
+        }).then(()=>{
+            alert('cadastro realizado com sucesso.');
+        }).catch(()=>{
+            alert('Erro no cadastro!')
+        });
+
+        // console.table({
+        //     img_usuario,
+        //     nm_usuario,
+        //     email_usuario,
+        //     cpf_usuario,
+        //     tel_usuario,
+        // })
+        // console.table({
+        //     UF,
+        //     cidade,
+        //     bairro,
+        //     rua,
+        //     numero,
+        // })
+        // console.table({
+        //     img_servico,
+        //     nm_servico,
+        //     fk_id_area,
+        //     desc_servico,
+        //     valor_servico:,
+        // })
+        // console.table(horariosServicos)
 
     }
 
@@ -82,7 +122,7 @@ function ProffyForm() {
                 description="O primeiro passso é preencher esse formulário de inscrição."
             />
             <main>
-                <form onSubmit={handleCreateClass}>
+                <form onSubmit={handleCreateProffy}>
                     <fieldset>
                         <legend>Dados pessoais</legend>
                         <Input
@@ -105,16 +145,26 @@ function ProffyForm() {
                             onChange={ (e)=> {setEmailUsuario(e.target.value) }}
                         />
                         <Input
-                            name="cpf_usuario"
-                            label="CPF"
-                            value={cpf_usuario}
-                            onChange={ (e)=> {setCPFUsuario(e.target.value) }}
-                        />
-                        <Input
                             name="tel_usuario"
                             label="WhatsApp"
                             value={tel_usuario}
                             onChange={ (e)=> {setTelUsuario(e.target.value) }}
+                        />
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dados de usuário</legend>
+                        <Input
+                            name="login_usuario"
+                            label="Usuário"
+                            value={login_usuario}
+                            onChange={ (e)=> {setLoginUsuario(e.target.value) }}
+                        />
+                        <Input
+                            type="password"
+                            name="senha_usuario"
+                            label="Senha"
+                            value={senha_usuario}
+                            onChange={ (e)=> {setSenhaUsuario(e.target.value) }}
                         />
                     </fieldset>
                     <fieldset>
@@ -176,14 +226,7 @@ function ProffyForm() {
                     </fieldset>
                     <fieldset>
                         <legend>Sobre o serviço</legend>
-                        <Input
-                            name="img_servico"
-                            label="Foto de capa"
-                            placeholder="https://url"
-                            value={img_servico}
-                            onChange={ (e)=> {setImgServico(e.target.value) }}
-                            
-                        />
+
                         <Input
                             name="nm_servico"
                             label="Nome"
@@ -234,7 +277,7 @@ function ProffyForm() {
                     {
                         horariosServicos.map( (horario, indice) => {
                             return(
-                                <div key={horario.dia_semana} className="column-grid column-grid-2-1-1">
+                                <div key={indice} className="column-grid column-grid-2-1-1">
                                     <Select
                                         name="dia_semana"
                                         label="Dia da semanna"
@@ -250,16 +293,12 @@ function ProffyForm() {
                                             { value: '5', label: 'Sexta-feira' },
                                             { value: '6', label: 'Sábado' },
                                         ]}
-                                    
-                                        
                                     />
                                     <Input 
                                         type="time" 
                                         name="horario_inicio" label="Das" 
                                         value={horario.horario_inicio}
-                                        onChange={e => setValorItem(indice,'horario_inicio',e.target.value)}
-
-                                                                            
+                                        onChange={e => setValorItem(indice,'horario_inicio',e.target.value)}                                    
                                     />
                                     <Input 
                                         type="time" 
