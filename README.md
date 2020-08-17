@@ -1,6 +1,6 @@
 # proffy-marketplace
 ### Projeto feito baseado na NLW com intuito de aprender um pouco mais sobre React e por em prática alguns conhecimentos. O projeto tem como propósito ser um Marketplace de serviços.
---
+---
 ### Get Start
 > É necessário ter o yarn instalado em sua máquina
 1. Clone o projeto ou baixe-o.
