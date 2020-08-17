@@ -14,33 +14,28 @@ export default class UsuarioController{
 
     async index(request: Request, response: Response){
         
-        // const filters = request.query;
+        const filters = request.query;
 
-        // const nm_usuario = filters.profissional as string;
-        // const id_servico= filters.servico as string;
-        // const id_ = filters.dia_semana as string;
+        const profissional = filters.nome as string;
+        const area= filters.servico as string;
+        const dia_semana = filters.dia_semana as string;
     
-        // if(!area || !dia_semana)
-        //     return response.status(400).json({
-        //         error:'Campos não foram informados'
-        //     })
-        
-        // const services = await db('tb_servico')
-        //                        .join('tb_usuario', 'tb_servico.fk_id_profissional','=', 'tb_usuario.id_usuario')
-        //                        .join('tb_horario_servico', 'tb_horario_servico.fk_id_servico','=', 'tb_servico.id_servico')
-        //                        .where('tb_horario_servico.dia_semana','=',dia_semana)
-        //                        .join('tb_avaliacao', function(){
-        //                                 // if(parseInt(estrelas)>0){
-        //                                 //     console.log('ok')
-        //                                 //     this.on('tb_avaliacao.num_estrela','=',estrelas)
-        //                                 // }
-        //                                 // this.on('tb_servico.fk_id_profissional','=','tb_avaliacao.fk_id_profissional')
-        //                                 // this.orOn('tb_servico.id_servico','tb_avaliacao.fk_id_servico')
-        //                         })
-        //                        .select(['tb_usuario.*','tb_servico.*','tb_horario_servico.*'])
-                               
-                            
-        // return response.status(200).json(services)
+
+        const services = await db('tb_servico')
+                               .join('tb_usuario', 'tb_servico.fk_id_profissional','=', 'tb_usuario.id_usuario')
+                               .join('tb_horario_servico', 'tb_horario_servico.fk_id_servico','=', 'tb_servico.id_servico')
+                               .where(function(){
+                                   if(dia_semana!='')
+                                        this.where('tb_horario_servico.dia_semana',dia_semana)
+                               })
+                               .where(function(){
+                                    if(area!='')
+                                        this.where('tb_servico.fk_id_area','=',area)
+                               })
+                               .where('tb_usuario.nm_usuario','like','%'+profissional+'%')
+                               .select(['tb_usuario.*','tb_servico.*','tb_horario_servico.*'])
+                               .orderBy('tb_usuario.nm_usuario','ASC')
+        return response.status(200).json(services)
     }
 
     
@@ -59,9 +54,7 @@ export default class UsuarioController{
             horarios_servico
         } = request.body;
 
-        console.log(request.body)
         const transaction = await db.transaction();
-       
         try{
             
             const userId = (await transaction('tb_usuario').insert({
@@ -74,8 +67,6 @@ export default class UsuarioController{
                 senha_usuario:  bcrypt.hashSync(senha_usuario, salt),
                 fk_id_nv_acesso,
             }))[0];
-
-            
 
             if (fk_id_nv_acesso == 2) {
             
@@ -114,7 +105,6 @@ export default class UsuarioController{
             });
     
         }catch(err){
-            console.log(err)
             await transaction.rollback();
             return response.status(400).json({
                 message:'Não foi possivel realizar o cadastro.'

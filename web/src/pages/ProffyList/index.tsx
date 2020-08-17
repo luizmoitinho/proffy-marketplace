@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useState, FormEvent } from 'react';
 
 import PageHeader from '../../components/PageHeader';
 
 
 import './style.css';
-import ProffyItem from '../../components/ProffyItem';
+import ProffyItem, {Proffy} from '../../components/ProffyItem';
 import Input from '../../components/Formulario/Input';
 import Select from '../../components/Formulario/Select';
+import api from '../../services/api';
 
 
 function ProffyList() {
+
+    const [proffys, setProffys] = useState([]);
+    const [dia_semana, setDiaSemana] = useState('');
+    const [nome, setNome] = useState('');
+    const [servico , setServico] = useState('');
+
+   async function searchPorffys( e : FormEvent){
+        e.preventDefault();
+        const response = await api.get('/users',{
+            params:{
+                dia_semana,
+                nome,
+                servico
+            }
+        });
+        console.log(response.data)
+        setProffys(response.data);
+    }
+
     return (
         <div id="page-teacher-list" className="container">
             <PageHeader title="Estes são os proffys disponíveis.">
-                <form id="search-teachers">
+                <form id="search-teachers" onSubmit={searchPorffys}>
                     <Input 
                         name="profissional" 
                         label="Profissional"
+                        value={nome}
+                        onChange = {e => { setNome(e.target.value) }}
                         placeholder="ex: Luiz Moitinho "
                     />
 
@@ -24,6 +46,8 @@ function ProffyList() {
                         name="dia_semana"
                         label="Tipo"
                         optionDefault="Dia da semana"
+                        value={dia_semana}
+                        onChange = {e => { setDiaSemana(e.target.value) }}
                         options={[
                             { value: '0', label: 'Domingo' },
                             { value: '1', label: 'Segunda-feira' },
@@ -39,6 +63,8 @@ function ProffyList() {
                         name="servico"
                         label="Serviço"
                         optionDefault="Tipos de serviços"
+                        value={servico}
+                        onChange = {e => { setServico(e.target.value) }}
                         options={[
                             { value: '1', label: 'Beleza' },
                             { value: '2', label: 'Alimentação' },
@@ -50,13 +76,18 @@ function ProffyList() {
                             { value: '8', label: 'Programador' },
                         ]}
                 />
+                <button type="submit">
+                        Procurar
+                </button>
+
                 </form>
             </PageHeader>
             <main>
-                <ProffyItem/>
-                <ProffyItem/>
-                <ProffyItem/>
-                <ProffyItem/>
+                {proffys.map( (proffy: Proffy) => {
+                        return  <ProffyItem key={proffy.id_usuario} proffy={proffy}/> ;
+                    })
+                }
+               
             </main>
         </div>
     );
