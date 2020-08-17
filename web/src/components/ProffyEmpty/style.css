@@ -1,0 +1,26 @@
+#msg-empty{
+    widows: 100vw;
+    margin-top: 5.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    font-size:2.4rem
+}
+#msg-empty  img{
+    height: 5.0rem;
+
+}
+#msg-empty p{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+
+#msg-empty span{
+    display: flex;
+    margin-left: 1.6rem;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+ }

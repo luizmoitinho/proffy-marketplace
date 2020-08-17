@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 
 import PageHeader from '../../components/PageHeader';
-
+import ProffyEmpty from '../../components/ProffyEmpty';
 
 import './style.css';
 import ProffyItem, {Proffy} from '../../components/ProffyItem';
@@ -27,11 +27,7 @@ function ProffyList() {
                 servico
             }
         });
-
-        console.log(response.data)
-        if(response.data.length==0){
-            alert('Nenhum serviço foi encontrado.')
-        }
+        
         setProffys(response.data);
     }
 
@@ -89,7 +85,8 @@ function ProffyList() {
             </PageHeader>
 
             <main>
-                {   
+                 <ProffyEmpty isEmpty={proffys.length==0}/>  
+                { 
                     proffys.map( (proffy: Proffy) => {
                         return  <ProffyItem key={proffy.id_servico} proffy={proffy}/> ;
                     })

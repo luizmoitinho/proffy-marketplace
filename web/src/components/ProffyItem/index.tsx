@@ -19,7 +19,7 @@ interface PorffyItemProps {
     proffy:Proffy
 }
 
-const ProffyItem: React .FC<PorffyItemProps> = ({proffy}) => {
+const ProffyItem: React.FC<PorffyItemProps> = ({proffy}) => {
 
     function novaConexao(){
         api.post('/connections',{

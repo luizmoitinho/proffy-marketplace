@@ -25,7 +25,6 @@ export default class UsuarioController{
 
         const services = await db('tb_usuario')
                                .join('tb_servico', 'tb_usuario.id_usuario','=','tb_servico.fk_id_profissional')
-
                                .where(function(){
                                     if(area!='')
                                         this.where('tb_servico.fk_id_area','=',area)
@@ -34,7 +33,7 @@ export default class UsuarioController{
                                .select([
                                     'tb_usuario.*',
                                     'tb_servico.*',
-                                    ])
+                                ])
                                .orderBy('tb_usuario.nm_usuario','ASC')
                                
         return response.status(200).json(services)
