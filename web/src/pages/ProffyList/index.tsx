@@ -12,6 +12,7 @@ import api from '../../services/api';
 
 function ProffyList() {
 
+    const [msgNaoEcontrado, setMsgNaoEcontrado] = useState('Não encontrado');
     const [proffys, setProffys] = useState([]);
     const [dia_semana, setDiaSemana] = useState('');
     const [nome, setNome] = useState('');
@@ -26,7 +27,11 @@ function ProffyList() {
                 servico
             }
         });
+
         console.log(response.data)
+        if(response.data.length==0){
+            alert('Nenhum serviço foi encontrado.')
+        }
         setProffys(response.data);
     }
 
@@ -82,12 +87,13 @@ function ProffyList() {
 
                 </form>
             </PageHeader>
+
             <main>
-                {proffys.map( (proffy: Proffy) => {
-                        return  <ProffyItem key={proffy.id_usuario} proffy={proffy}/> ;
+                {   
+                    proffys.map( (proffy: Proffy) => {
+                        return  <ProffyItem key={proffy.id_servico} proffy={proffy}/> ;
                     })
                 }
-               
             </main>
         </div>
     );

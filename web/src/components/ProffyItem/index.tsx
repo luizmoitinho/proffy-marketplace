@@ -6,7 +6,8 @@ import api from '../../services/api';
 
 
 export interface Proffy{
-    id_usuario:string,
+    id_usuario:number,
+    id_servico:number,
     img_usuario:string,
     nm_usuario:string,
     tel_usuario:string
