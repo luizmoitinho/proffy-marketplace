@@ -61,8 +61,6 @@ function ProffyForm() {
     }
 
     function handleCreateProffy(e: FormEvent){
-        e.preventDefault();
-
         api.post('users',{
             img_usuario,
             nm_usuario,
@@ -88,7 +86,7 @@ function ProffyForm() {
             
         }).then(()=>{
             alert('cadastro realizado com sucesso.');
-            history.push('/')
+            history.push('/');
         }).catch(()=>{
             alert('Erro no cadastro!')
         });
@@ -112,6 +110,7 @@ function ProffyForm() {
                             onChange={ (e)=> {setImgUsuario(e.target.value) }}
                         />
                         <Input
+                            
                             name="nome_usuario"
                             label="Nome completo"
                             value={nm_usuario}
